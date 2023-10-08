@@ -12,13 +12,13 @@ pipeline {
     }
       
        stages{ 
-         stages {
+         
            stage('clone the code') {
             steps {
                 git branch: 'main', url: 'https://github.com/monk8081/tweet-trend-new.git'
              }
            }
-         }  
+          
             stage('Build') {
              steps {
                   echo "----------- build started ----------"
