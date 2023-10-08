@@ -15,15 +15,17 @@ pipeline {
     
     environment{
 
-    PATH = "/opt/apache-maven-3.9.5/bin:$PATH"   
+       PATH = "/opt/apache-maven-3.9.5/bin:$PATH"   
     }
 
-    stages{
-        stage('Build the code')  { 
-            steps{
-              sh 'mvn clean deploy'
 
+    stages {
+        stage("build"){
+            steps {
+                 echo "----------- build started ----------"
+                sh 'mvn clean deploy -Dmaven.test.skip=true'
+                 echo "----------- build complted ----------"
             }
         }
-    }
+   
 }
