@@ -27,9 +27,9 @@ pipeline {
                 }
             }
 
-            stage('Test'){
+            stage('test'){
                 steps{
-                   echo "----------------test started----------" 
+                   echo "----------------unit test started----------" 
                    sh 'mvn surefire-report:repot'
                    echo "--------------unit test complete---------------"
 
