@@ -26,6 +26,18 @@ pipeline {
                   echo "----------- build complted ----------"
                 }
             }
+
+            stage('Test'){
+                steps{
+                   echo "----------------test started----------" 
+                   sh 'mvn surefire-report:repot'
+                   echo "--------------unit test complete---------------"
+
+                }
+
+            }
+
+            
             stage('SonarQube analysis') {
                 environment{
                     scannerHome = tool 'monk-sonar-scanner'
