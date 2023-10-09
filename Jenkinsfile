@@ -28,14 +28,16 @@ pipeline {
             }
             stage('SonarQube analysis') {
                 environment{
-                    scannerHome = tool 'monk_sonar-scanner'
+                    scannerHome = tool 'monk-sonar-scanner'
                 }
               steps{
-                  withSonarQubeEnv('monk_sonarqube-server') { // If you have configured more than one global server connection, you can specify its name
+                  withSonarQubeEnv('monk-sonarqube-server') { // If you have configured more than one global server connection, you can specify its name
                   sh "${scannerHome}/bin/sonar-scanner"
                   }
                 }
             }
+
+            
        }    
           
    
