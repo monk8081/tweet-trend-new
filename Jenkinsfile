@@ -49,20 +49,21 @@ pipeline {
                 }
             } 
 
-            stage('Quality Gate') {
-            steps {
-                scipt{
-                // Wait for the SonarQube analysis to complete and evaluate the quality gate
-                timeout(time: 1, unit: 'HOURS') {
-                    def qualityGate = waitForQualityGate()
-                    if (qualityGate.status != 'OK') {
-                        error "Quality Gate failed: ${qualityGate.status}" 
-                    }
-                }
+           
 
+
+                stage("Quality Gate"){
+                  steps {
+                     script {
+                        timeout(time: 1, unit: 'HOURS') { // Just in case something goes wrong, pipeline will be killed after a timeout
+                        def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
+                        if (qg.status != 'OK') {
+                         error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                        }
+                      }
+                    }
+                  }
                 }
-            }
-        }
 
             
        }    
