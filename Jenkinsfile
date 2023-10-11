@@ -47,7 +47,19 @@ pipeline {
                   sh "${scannerHome}/bin/sonar-scanner"
                   }
                 }
+            } 
+
+            stage('Quality Gate') {
+            steps {
+                // Wait for the SonarQube analysis to complete and evaluate the quality gate
+                timeout(time: 1, unit: 'HOURS') {
+                    def qualityGate = waitForQualityGate()
+                    if (qualityGate.status != 'OK') {
+                        error "Quality Gate failed: ${qualityGate.status}"
+                    }
+                }
             }
+        }
 
             
        }    
